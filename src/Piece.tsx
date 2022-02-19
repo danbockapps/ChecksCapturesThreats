@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Dimensions, Image, StyleSheet, View } from 'react-native'
+import { Dimensions, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 const { width } = Dimensions.get('window')
 const SIZE = width / 8
@@ -26,6 +26,7 @@ export const PIECES: Pieces = {
 interface Props {
   id: Piece
   startPosition: { x: number; y: number }
+  onPress: () => void
 }
 
 const Piece: FC<Props> = props => {
@@ -40,9 +41,9 @@ const Piece: FC<Props> = props => {
   })
 
   return (
-    <View style={style.view}>
+    <TouchableOpacity style={style.view} onPress={props.onPress}>
       <Image source={PIECES[props.id]} style={styles.piece} />
-    </View>
+    </TouchableOpacity>
   )
 }
 

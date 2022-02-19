@@ -1,7 +1,8 @@
-import { Chess } from 'chess.js'
-import React, { FC } from 'react'
+import { Chess, Square } from 'chess.js'
+import { FC, useState } from 'react'
 import { Dimensions, StyleSheet, View } from 'react-native'
 import Background from './Background'
+import { vectorToSquare } from './converters'
 import Piece from './Piece'
 
 const { width } = Dimensions.get('window')
@@ -9,6 +10,9 @@ const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({ container: { width, height: width } })
 
 const Board: FC = () => {
+  const [selectedSquare, setSelectedSquare] = useState<Square>()
+  console.log('selectedSquare', selectedSquare)
+
   const chess = new Chess()
   return (
     <View style={styles.container}>
@@ -21,6 +25,7 @@ const Board: FC = () => {
                 key={`${x}-${y}`}
                 id={`${piece.color}${piece.type}` as const}
                 startPosition={{ x, y }}
+                onPress={() => setSelectedSquare(vectorToSquare({ x, y }))}
               />
             )
           }
