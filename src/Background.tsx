@@ -1,5 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import { View, StyleSheet, Text, StyleProp, TextStyle } from 'react-native'
+import AppContext from './AppContext'
+import { vectorToSquare } from './converters'
 
 const LIGHT = 'rgb(100, 133, 68)'
 const DARK = 'rgb(230, 233, 198)'
@@ -19,14 +21,19 @@ interface SquareProps extends RowProps {
 }
 
 const Square: FC<SquareProps> = props => {
-  const backgroundColor = props.white ? LIGHT : DARK
   const color = props.white ? DARK : LIGHT
   const textStyle: StyleProp<TextStyle> = { fontWeight: '500' as const, color, fontSize: 9 }
+
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor,
+        backgroundColor:
+          vectorToSquare({ x: props.col, y: props.row }) === useContext(AppContext)?.selectedSquare
+            ? 'orange'
+            : props.white
+            ? LIGHT
+            : DARK,
         padding: 4,
         justifyContent: 'space-between',
       }}
