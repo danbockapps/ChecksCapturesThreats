@@ -29,6 +29,7 @@ const Square: FC<SquareProps> = props => {
       style={{
         flex: 1,
         backgroundColor:
+          // TODO memoize this so only the square that needs to rerenders
           vectorToSquare({ x: props.col, y: props.row }) === useContext(AppContext)?.selectedSquare
             ? 'orange'
             : props.white

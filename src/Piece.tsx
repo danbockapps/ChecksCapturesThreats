@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Dimensions, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { Dimensions, Image, StyleSheet, TouchableWithoutFeedback, View } from 'react-native'
 
 const { width } = Dimensions.get('window')
 const SIZE = width / 8
@@ -41,9 +41,11 @@ const Piece: FC<Props> = props => {
   })
 
   return (
-    <TouchableOpacity style={style.view} onPress={props.onPress}>
-      <Image source={PIECES[props.id]} style={styles.piece} />
-    </TouchableOpacity>
+    <View style={style.view}>
+      <TouchableWithoutFeedback onPressIn={props.onPress} onPressOut={() => console.log(props.id)}>
+        <Image source={PIECES[props.id]} style={styles.piece} />
+      </TouchableWithoutFeedback>
+    </View>
   )
 }
 
