@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, View } from 'react-native'
+import { SafeAreaView, StyleSheet } from 'react-native'
 import Board from './src/Board'
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Board />
       <StatusBar style='auto' />
-    </View>
+    </SafeAreaView>
   )
 }
 

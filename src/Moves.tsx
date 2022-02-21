@@ -17,7 +17,7 @@ const Moves: FC<Props> = props => (
 )
 
 const styles = StyleSheet.create({
-  moves: { flexDirection: 'row', flexWrap: 'wrap' },
+  moves: { flexDirection: 'row', flexWrap: 'wrap', flex: 1, alignContent: 'flex-end' },
   move: {
     marginRight: 1.5,
     marginLeft: 1.5,

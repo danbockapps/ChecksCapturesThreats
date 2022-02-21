@@ -9,8 +9,6 @@ import Piece from './Piece'
 
 const { width } = Dimensions.get('window')
 
-const styles = StyleSheet.create({ container: { width, height: width } })
-
 const Board: FC = () => {
   const [selectedSquare, setSelectedSquare] = useState<Square>()
   const [moves, setMoves] = useState<string[]>([])
@@ -67,5 +65,7 @@ const Board: FC = () => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({ container: { flex: 2, width, height: width } })
 
 export default Board

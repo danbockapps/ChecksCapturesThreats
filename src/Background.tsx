@@ -1,5 +1,6 @@
 import React, { FC, useContext } from 'react'
 import {
+  Dimensions,
   StyleProp,
   StyleSheet,
   Text,
@@ -12,8 +13,6 @@ import { vectorToSquare } from './converters'
 
 const LIGHT = 'rgb(100, 133, 68)'
 const DARK = 'rgb(230, 233, 198)'
-
-const styles = StyleSheet.create({ container: { flex: 1, flexDirection: 'row' } })
 
 interface BaseProps {
   light: boolean
@@ -29,7 +28,7 @@ interface SquareProps extends RowProps {
 
 const Square: FC<SquareProps> = props => {
   const color = props.light ? DARK : LIGHT
-  const textStyle: StyleProp<TextStyle> = { fontWeight: '500' as const, color, fontSize: 9 }
+  const textStyle: StyleProp<TextStyle> = { ...styles.text, color }
 
   const context = useContext(AppContext)
   const square = vectorToSquare({ x: props.col, y: props.row })
@@ -38,12 +37,10 @@ const Square: FC<SquareProps> = props => {
     <TouchableWithoutFeedback onPressIn={() => context.onSquareClicked(square)}>
       <View
         style={{
-          flex: 1,
+          ...styles.square,
           backgroundColor:
             // TODO memoize this so only the square that needs to rerenders
             square === context.selectedSquare ? 'orange' : props.light ? LIGHT : DARK,
-          padding: 4,
-          justifyContent: 'space-between',
         }}
       >
         <Text style={[textStyle, { opacity: props.col === 0 ? 1 : 0 }]}>
@@ -62,7 +59,7 @@ const Square: FC<SquareProps> = props => {
 const Row: FC<RowProps> = props => {
   const offset = props.light ? 0 : 1
   return (
-    <View style={styles.container}>
+    <View style={styles.row}>
       {new Array(8).fill(0).map((_, i) => (
         <Square row={props.row} col={i} key={i} light={(i + offset) % 2 === 1} />
       ))}
@@ -72,12 +69,20 @@ const Row: FC<RowProps> = props => {
 
 const Background: FC = () => {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.background}>
       {new Array(8).fill(0).map((_, i) => (
         <Row key={i} light={i % 2 === 0} row={i} />
       ))}
     </View>
   )
 }
+
+const { width } = Dimensions.get('window')
+const styles = StyleSheet.create({
+  background: { height: width }, // I don't know why I need this
+  row: { flex: 1, flexDirection: 'row' },
+  square: { height: width / 8, flex: 1, padding: 4, justifyContent: 'space-between' },
+  text: { fontWeight: '500', fontSize: 9 },
+})
 
 export default Background
