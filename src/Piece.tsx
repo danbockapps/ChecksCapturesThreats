@@ -42,7 +42,7 @@ const Piece: FC<Props> = props => {
 
   return (
     <View style={style.view}>
-      <TouchableWithoutFeedback onPressIn={props.onPress} onPressOut={() => console.log(props.id)}>
+      <TouchableWithoutFeedback onPressIn={props.onPress}>
         <Image source={PIECES[props.id]} style={styles.piece} />
       </TouchableWithoutFeedback>
     </View>
