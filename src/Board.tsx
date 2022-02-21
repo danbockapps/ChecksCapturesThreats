@@ -66,6 +66,6 @@ const Board: FC = () => {
   )
 }
 
-const styles = StyleSheet.create({ container: { flex: 2, width, height: width } })
+const styles = StyleSheet.create({ container: { flex: 2, width } })
 
 export default Board

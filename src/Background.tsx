@@ -69,7 +69,7 @@ const Row: FC<RowProps> = props => {
 
 const Background: FC = () => {
   return (
-    <View style={styles.background}>
+    <View>
       {new Array(8).fill(0).map((_, i) => (
         <Row key={i} light={i % 2 === 0} row={i} />
       ))}
@@ -79,8 +79,7 @@ const Background: FC = () => {
 
 const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
-  background: { height: width }, // I don't know why I need this
-  row: { flex: 1, flexDirection: 'row' },
+  row: { flexDirection: 'row' },
   square: { height: width / 8, flex: 1, padding: 4, justifyContent: 'space-between' },
   text: { fontWeight: '500', fontSize: 9 },
 })
