@@ -43,7 +43,7 @@ const Board: FC = () => {
 
   return (
     <View>
-      <Moves moves={moves} />
+      <Moves moves={moves} onPress={move => setMoves(moves.filter(m => m !== move))} />
       <View style={styles.container}>
         <AppContext.Provider value={{ selectedSquare, onSquareClicked }}>
           <Background />
