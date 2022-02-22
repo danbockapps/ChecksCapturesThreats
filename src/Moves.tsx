@@ -1,16 +1,18 @@
 import { FC } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
+export type MoveColor = { move: string; color: 'black' | 'green' | 'red' }
+
 interface Props {
-  moves: string[]
+  moves: MoveColor[]
   onPress: (move: string) => void
 }
 
 const Moves: FC<Props> = props => (
   <View style={styles.moves}>
     {props.moves.map((move, i) => (
-      <TouchableOpacity key={i} style={styles.move} onPress={() => props.onPress(move)}>
-        <Text>{move}</Text>
+      <TouchableOpacity key={i} style={styles.move} onPress={() => props.onPress(move.move)}>
+        <Text style={{ color: move.color }}>{move.move}</Text>
       </TouchableOpacity>
     ))}
   </View>

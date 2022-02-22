@@ -4,8 +4,9 @@ import { Dimensions, StyleSheet, View } from 'react-native'
 import AppContext from './AppContext'
 import Background from './Background'
 import Button from './Button'
+import { getChecksCapturesThreats } from './checksCapturesThreats'
 import { squaresToSan, vectorToSquare } from './converters'
-import Moves from './Moves'
+import Moves, { MoveColor } from './Moves'
 import Piece from './Piece'
 
 const { width } = Dimensions.get('window')
@@ -13,6 +14,7 @@ const { width } = Dimensions.get('window')
 const Board: FC = () => {
   const [selectedSquare, setSelectedSquare] = useState<Square>()
   const [moves, setMoves] = useState<string[]>([])
+  const [correctMoves, setCorrectMoves] = useState<string[]>([])
 
   const chess = new Chess('1nr2rk1/pb2qpp1/1p1p1n1p/3Pp3/2P1N3/P2B1N2/1PQ2PPP/2RR2K1 w - - 1 17')
 
@@ -40,9 +42,19 @@ const Board: FC = () => {
     setSelectedSquare(undefined)
   }
 
+  const displayMoves = [
+    ...moves.map<MoveColor>(move => ({
+      move,
+      color: correctMoves.includes(move) ? 'green' : 'black',
+    })),
+    ...correctMoves
+      .filter(move => !moves.includes(move))
+      .map<MoveColor>(move => ({ move, color: 'red' })),
+  ]
+
   return (
     <View>
-      <Moves moves={moves} onPress={move => setMoves(moves.filter(m => m !== move))} />
+      <Moves moves={displayMoves} onPress={move => setMoves(moves.filter(m => m !== move))} />
       <View style={styles.container}>
         <AppContext.Provider value={{ selectedSquare, onSquareClicked }}>
           <Background />
@@ -62,7 +74,7 @@ const Board: FC = () => {
             return null
           }),
         )}
-        <Button onPress={() => {}}>Done</Button>
+        <Button onPress={() => setCorrectMoves(getChecksCapturesThreats(chess))}>Done</Button>
       </View>
     </View>
   )
