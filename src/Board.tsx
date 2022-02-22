@@ -1,9 +1,10 @@
 import { Chess, Square } from 'chess.js'
 import { FC, useState } from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import AppContext from './AppContext'
 import Background from './Background'
-import { vectorToSquare, squaresToSan } from './converters'
+import Button from './Button'
+import { squaresToSan, vectorToSquare } from './converters'
 import Moves from './Moves'
 import Piece from './Piece'
 
@@ -61,6 +62,7 @@ const Board: FC = () => {
             return null
           }),
         )}
+        <Button onPress={() => {}}>Done</Button>
       </View>
     </View>
   )
